@@ -1,19 +1,13 @@
 package br.com.evertonmartins.springbootmongodb.services;
 
 import br.com.evertonmartins.springbootmongodb.domain.User;
-import br.com.evertonmartins.springbootmongodb.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserService {
+public interface UserService {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    public List<User> findAll(){
-        return userRepository.findAll();
-    }
+    List<User> findAll();
+    User findById(String id);
 }
