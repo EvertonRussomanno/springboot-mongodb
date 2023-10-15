@@ -1,6 +1,8 @@
 package br.com.evertonmartins.springbootmongodb.resources;
 
 import br.com.evertonmartins.springbootmongodb.domain.User;
+import br.com.evertonmartins.springbootmongodb.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,12 +16,12 @@ import java.util.List;
 @RequestMapping(value = "/users")
 public class UserResource {
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping
     public ResponseEntity<List<User>> findAll(){
-        User maria = new User("1", "Maria Silva", "maria@silva.com");
-        User alex = new User("2", "Alex Pereira", "alex@pereira.com");
-        List<User> list = new ArrayList<>();
-        list.addAll(Arrays.asList(maria,alex));
+        List<User> list = userService.findAll();
         return ResponseEntity.ok().body(list);
     }
 }
