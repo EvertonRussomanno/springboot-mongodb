@@ -1,6 +1,7 @@
 package br.com.evertonmartins.springbootmongodb.resources;
 
 import br.com.evertonmartins.springbootmongodb.domain.User;
+import br.com.evertonmartins.springbootmongodb.dto.UserDTO;
 import br.com.evertonmartins.springbootmongodb.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +21,9 @@ public class UserResource {
     private UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<User>> findAll(){
+    public ResponseEntity<List<UserDTO>> findAll(){
         List<User> list = userService.findAll();
-        return ResponseEntity.ok().body(list);
+        List<UserDTO> listDto = list.stream().map(p -> new UserDTO(p)).toList();
+        return ResponseEntity.ok().body(listDto);
     }
 }
