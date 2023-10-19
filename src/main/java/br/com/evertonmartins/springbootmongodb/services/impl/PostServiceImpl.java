@@ -7,6 +7,7 @@ import br.com.evertonmartins.springbootmongodb.services.exception.ObjectNotFound
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,5 +20,10 @@ public class PostServiceImpl implements PostService {
     public Post findById(String id) {
         Optional<Post> post = postRepository.findById(id);
         return post.orElseThrow(() -> new ObjectNotFoundException("Post not found!"));
+    }
+
+    @Override
+    public List<Post> findByTitle(String text) {
+        return postRepository.findByTitleContainingIgnoreCase(text);
     }
 }
